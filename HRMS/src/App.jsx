@@ -8,6 +8,7 @@ import Home from './Components/Home';
 import Employee from './Components/Employee';
 import Category from './Components/Category';
 import Profile from './Components/Profile';
+import AddCategory from './Components/AddCategory';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
             <Route path='' element={<Home />} ></Route>
             <Route path='/dashboard/employee' element={<Employee />} ></Route>
             <Route path='/dashboard/category' element={<Category />} ></Route>
+            <Route path='/dashboard/category/add' element={<AddCategory />} ></Route>
             <Route path='/dashboard/profile' element={<Profile />} ></Route>
             <Route path='/dashboard/profile' element={<Profile />} ></Route>
           </Route>
