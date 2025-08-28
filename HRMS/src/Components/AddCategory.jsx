@@ -4,15 +4,16 @@ import { useNavigate } from 'react-router-dom';
 
 const AddCategory = () => {
     const [category, setCategory] = useState();
-    const navigate = useNavigate();
+     const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // Here you would typically send the category to your backend
         axios.post('http://localhost:3000/auth/category/add', { category })
             .then(response => {
-                if (response.data.success) {
+                if (response.data.Status) {
                     //alert('Category added successfully!');
-                    navigate('/dashboard/category'); // Redirect to the category list
+                    navigate('/dashboard/category');  // Redirect to the category list
                     setCategory(); // Clear the input field after successful submission
                 } else {
                     alert(response.data.message);
