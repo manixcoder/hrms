@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddEmployee = () => {
     const [employee, setEmployee] = useState({
@@ -27,13 +28,38 @@ const AddEmployee = () => {
             .catch(error => console.error('There was an error fetching the categories!', error));
 
     }, []);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const formData = new FormData();
+        formData.append('name', employee.name);
+        formData.append('email', employee.email);
+        formData.append('password', employee.password);
+        formData.append('salery', employee.salery);
+        formData.append('address', employee.address);
+        formData.append('category_id', employee.category_id);
+        formData.append('profile', employee.profile);
 
-        axios.post('http://localhost:3000/auth/employee/add', employee)
-            .then(response =>
-                console.log(response.data)
+        axios.post('http://localhost:3000/auth/employee/add', formData)
+            .then(response =>{
+                if (response.data.Status) {
+                    //alert('Employee added successfully!');
+                    navigate('/dashboard/employee'); // Redirect to the employee list
+                    setEmployee({
+                        name: '',
+                        email: '',
+                        password: '',
+                        salery: '',
+                        address: '',
+                        category_id: '',
+                        profile: ''
+                    }); // Clear the form after successful submission
+                } else {
+                    alert(response.data.message);
+                }
+            }
+                 
             )
             .catch(error =>
                 console.error('There was an error adding the employee!')
